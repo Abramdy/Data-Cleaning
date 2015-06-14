@@ -18,7 +18,7 @@ import static org.springframework.util.CollectionUtils.isEmpty;
  * 2015/6/14.
  */
 @Component
-public class DataTransformComponent<T1 extends OriginalPayload, T2 extends TransformedPayload>  {
+public class DataTransformComponent {
 
     @Resource
     TransformContext transformContext;
@@ -28,7 +28,7 @@ public class DataTransformComponent<T1 extends OriginalPayload, T2 extends Trans
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public List<T2> transform(List<T1> toBeTransformedList){
+    public <T1 extends OriginalPayload, T2 extends TransformedPayload> List<T2> transform(List<T1> toBeTransformedList){
         logger.debug("start to transform...");
 
         if(isEmpty(toBeTransformedList)){
