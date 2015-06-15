@@ -5,12 +5,16 @@ import io.github.rollenholt.cleaning.collect.DataCollertorComponent;
 import io.github.rollenholt.cleaning.pojo.DataCollectorParam;
 import io.github.rollenholt.cleaning.pojo.OriginalPayload;
 import io.github.rollenholt.cleaning.pojo.TransformedPayload;
+import io.github.rollenholt.cleaning.pojo.model.WashedRecord;
+import io.github.rollenholt.cleaning.service.WashedRecordService;
 import io.github.rollenholt.cleaning.transform.DataTransformComponent;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -45,7 +49,4 @@ public class DataCleaningTriggerController {
         return new JsonV2(0, "", null );
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(DataCleaningTriggerController.class, args);
-    }
 }
