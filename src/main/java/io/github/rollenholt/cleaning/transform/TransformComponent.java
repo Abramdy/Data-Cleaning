@@ -18,7 +18,7 @@ import static org.springframework.util.CollectionUtils.isEmpty;
  * 2015/6/14.
  */
 @Component
-public class DataTransformComponent {
+public class TransformComponent {
 
     @Resource
     TransformContext transformContext;

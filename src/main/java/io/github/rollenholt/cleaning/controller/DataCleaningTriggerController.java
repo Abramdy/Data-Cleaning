@@ -31,7 +31,7 @@ public class DataCleaningTriggerController {
     @ResponseBody
     public JsonV2 trigger(){
         logger.info("start to trigger data wash task");
-       dataWashService.washData();
+        dataWashService.washData();
         logger.info("finished data wash tasl");
         return new JsonV2<String>(0, "data wash finished", null);
     }

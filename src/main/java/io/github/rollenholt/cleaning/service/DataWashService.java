@@ -5,8 +5,8 @@ import io.github.rollenholt.cleaning.pojo.DataCollectorParam;
 import io.github.rollenholt.cleaning.pojo.OriginalPayload;
 import io.github.rollenholt.cleaning.pojo.TransformedPayload;
 import io.github.rollenholt.cleaning.pojo.model.WashedRecord;
-import io.github.rollenholt.cleaning.transform.DataTransformComponent;
-import io.github.rollenholt.cleaning.wash.DataWashComponent;
+import io.github.rollenholt.cleaning.transform.TransformComponent;
+import io.github.rollenholt.cleaning.wash.WashComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,10 +28,10 @@ public class DataWashService {
     private DataCollertorComponent collertorComponent;
 
     @Resource
-    private DataTransformComponent dataTransformComponent;
+    private TransformComponent transformComponent;
 
     @Resource
-    private DataWashComponent dataWashComponent;
+    private WashComponent washComponent;
 
     @Resource
     private WashedRecordService washedRecordService;
@@ -43,25 +43,23 @@ public class DataWashService {
     public void washData(){
 
         // create DataCollectorParam instance and then do some properties init
-        DataCollectorParam dataCollectorParam = new DataCollectorParam();
-        // some properties init here
+        DataCollectorParam dataCollectorParam = fetchDataCollectorParam();
 
         // start to collect data
         List<OriginalPayload> originalPayloadList = collertorComponent.collect(dataCollectorParam);
 
         // start to transform data
-        List<TransformedPayload> transformedPayloadList = dataTransformComponent.transform(originalPayloadList);
+        List<TransformedPayload> transformedPayloadList = transformComponent.transform(originalPayloadList);
 
         // start data wash
         for (TransformedPayload transformedPayload : transformedPayloadList) {
-
             initWashedRecord(dataCollectorParam, transformedPayload);
 
             final Integer dataTypeId = transformedPayload.getDataTypeId();
             final Integer originDataId = transformedPayload.getOriginDataId();
             int washDataId = DEFAULT_WASHED_DATA_ID;
             try {
-                washDataId = dataWashComponent.wash(transformedPayload);
+                washDataId = washComponent.wash(transformedPayload);
             } catch (Exception e) {
                 logger.error("wash data [originalDataId: {}, dataTypeId: {}] throw exception",
                         originDataId, dataTypeId, e.getMessage(), e);
@@ -71,6 +69,14 @@ public class DataWashService {
             updateWashedRecordWhenWashSuccessByOriginDataIdAndType(dataTypeId, originDataId, washDataId);
         }
 
+    }
+
+    private DataCollectorParam fetchDataCollectorParam() {
+        //create DataCollectorParam instance and then do some properties init
+        DataCollectorParam dataCollectorParam = new DataCollectorParam();
+        dataCollectorParam.setDataTypeId(0);
+        dataCollectorParam.setStrategyKeyTypeId(0);
+        return dataCollectorParam;
     }
 
     private void updateWashedRecordWhenWashSuccessByOriginDataIdAndType(Integer dataTypeId, Integer originDataId, int washDataId) {

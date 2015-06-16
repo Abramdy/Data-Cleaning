@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * 2015/6/16.
  */
 @Component
-public class DataWashComponent {
+public class WashComponent {
     public int wash(TransformedPayload transformedPayload) {
         // todo
         return 0;
