@@ -28,4 +28,7 @@ public class WashedRecordService {
     }
 
 
+    public void updateWhenWashSuccessByOriginDataIdAndType(WashedRecord washedRecord) {
+
+    }
 }

@@ -1,24 +1,16 @@
 package io.github.rollenholt.cleaning.controller;
 
 import com.rollenholt.pear.pojo.JsonV2;
-import io.github.rollenholt.cleaning.collect.DataCollertorComponent;
-import io.github.rollenholt.cleaning.pojo.DataCollectorParam;
-import io.github.rollenholt.cleaning.pojo.OriginalPayload;
-import io.github.rollenholt.cleaning.pojo.TransformedPayload;
-import io.github.rollenholt.cleaning.pojo.model.WashedRecord;
-import io.github.rollenholt.cleaning.service.WashedRecordService;
-import io.github.rollenholt.cleaning.transform.DataTransformComponent;
-import org.apache.ibatis.session.RowBounds;
-import org.springframework.boot.SpringApplication;
+import io.github.rollenholt.cleaning.service.DataWashService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * rollenholt
@@ -31,22 +23,17 @@ import java.util.List;
 public class DataCleaningTriggerController {
 
     @Resource
-    private DataCollertorComponent collertorComponent;
+    private DataWashService dataWashService;
 
-    @Resource
-    private DataTransformComponent dataTransformComponent;
+    private final Logger logger = LoggerFactory.getLogger(DataCleaningTriggerController.class);
 
     @RequestMapping(value ="/trigger", method = RequestMethod.GET)
     @ResponseBody
     public JsonV2 trigger(){
-
-        DataCollectorParam dataCollectorParam = new DataCollectorParam();
-        List<OriginalPayload> originalPayloadList = collertorComponent.collect(dataCollectorParam);
-
-        List<TransformedPayload> transformedPayloadList = dataTransformComponent.transform(originalPayloadList);
-
-        // todo
-        return new JsonV2(0, "", null );
+        logger.info("start to trigger data wash task");
+       dataWashService.washData();
+        logger.info("finished data wash tasl");
+        return new JsonV2<String>(0, "data wash finished", null);
     }
 
 }
