@@ -4,7 +4,7 @@
     <groupId>io.github.rollenholt</groupId>
     <artifactId>Data-Cleaning</artifactId>
     <packaging>war</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>Data-Cleaning Maven Webapp</name>
     <url>http://maven.apache.org</url>
 

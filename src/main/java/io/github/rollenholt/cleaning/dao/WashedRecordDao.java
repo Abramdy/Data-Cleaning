@@ -24,4 +24,11 @@ public class WashedRecordDao {
     public List<WashedRecord> queryAll(RowBounds rowBounds) {
         return Collections.emptyList();
     }
+
+    /**
+     * @return 返回受影响的行数
+     */
+    public int updateWhenWashSuccessByOriginDataIdAndType(WashedRecord washedRecord) {
+        return 0;
+    }
 }

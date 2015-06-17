@@ -1,7 +1,7 @@
 package io.github.rollenholt.cleaning.collect;
 
 import com.google.common.base.Preconditions;
-import io.github.rollenholt.cleaning.pojo.DataCollectorParam;
+import io.github.rollenholt.cleaning.pojo.DataWashParam;
 import io.github.rollenholt.cleaning.pojo.OriginalPayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class DataCollertorComponent {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public List<OriginalPayload> collect(DataCollectorParam obj){
+    public List<OriginalPayload> collect(DataWashParam obj){
         Preconditions.checkNotNull(obj);
 
         logger.debug("start to collect data");

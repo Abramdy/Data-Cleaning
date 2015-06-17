@@ -10,16 +10,34 @@ import java.io.Serializable;
  */
 public class WashedRecord implements Serializable{
 
+    /**
+     * id主键
+     */
     private Integer id;
 
+    /**
+     * 原始的数据id`
+     */
     private Integer originDataId;
 
+    /**
+     * 被清洗之后的数据id
+     */
     private Integer washedDataId;
 
+    /**
+     * 数据类型id
+     */
     private Integer dataTypeId;
 
+    /**
+     * 数据清洗结果类型id
+     */
     private Integer handleResultTypeId;
 
+    /**
+     * 数据源标识
+     */
     private Integer strategykeyTypeId;
 
     public Integer getId() {
