@@ -3,6 +3,7 @@ package io.github.rollenholt.cleaning.pojo.dict;
 /**
  * rollenholt
  * 2015/6/16.
+ * 被清洗的数据类型，此处需要更新具体的实际情况来定义
  */
 public enum DataType {
     ;

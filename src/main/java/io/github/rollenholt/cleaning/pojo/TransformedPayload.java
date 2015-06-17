@@ -7,11 +7,18 @@ import java.io.Serializable;
 /**
  * rollenholt
  * 2015/6/14.
+ * 转换之后的数据负载
  */
 public class TransformedPayload implements Serializable {
 
+    /**
+     * 原始的数据id
+     */
     private Integer originDataId;
 
+    /**
+     * 数据类型id
+     */
     private Integer dataTypeId;
 
     public Integer getOriginDataId() {

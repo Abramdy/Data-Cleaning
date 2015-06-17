@@ -1,6 +1,6 @@
 package io.github.rollenholt.cleaning.collect;
 
-import io.github.rollenholt.cleaning.pojo.DataCollectorParam;
+import io.github.rollenholt.cleaning.pojo.DataWashParam;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CollectorStrategyGenerator {
 
-    public String generateKey(DataCollectorParam dataCollectorParam){
+    public String generateKey(DataWashParam dataWashParam){
         //todo
         return "";
     }

@@ -8,10 +8,16 @@ import java.io.Serializable;
  * rollenholt
  * 2015/6/15.
  */
-public class DataCollectorParam implements Serializable {
+public class DataWashParam implements Serializable {
 
+    /**
+     * 数据类型id
+     */
     private int dataTypeId;
 
+    /**
+     * 数据种类处理方式类型id
+     */
     private int strategyKeyTypeId;
 
 

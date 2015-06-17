@@ -1,7 +1,7 @@
 package io.github.rollenholt.cleaning.service;
 
 import io.github.rollenholt.cleaning.collect.DataCollertorComponent;
-import io.github.rollenholt.cleaning.pojo.DataCollectorParam;
+import io.github.rollenholt.cleaning.pojo.DataWashParam;
 import io.github.rollenholt.cleaning.pojo.OriginalPayload;
 import io.github.rollenholt.cleaning.pojo.TransformedPayload;
 import io.github.rollenholt.cleaning.pojo.model.WashedRecord;
@@ -42,18 +42,18 @@ public class DataWashService {
 
     public void washData(){
 
-        // create DataCollectorParam instance and then do some properties init
-        DataCollectorParam dataCollectorParam = fetchDataCollectorParam();
+        // create DataWashParam instance and then do some properties init
+        DataWashParam dataWashParam = fetchDataCollectorParam();
 
         // start to collect data
-        List<OriginalPayload> originalPayloadList = collertorComponent.collect(dataCollectorParam);
+        List<OriginalPayload> originalPayloadList = collertorComponent.collect(dataWashParam);
 
         // start to transform data
         List<TransformedPayload> transformedPayloadList = transformComponent.transform(originalPayloadList);
 
         // start data wash
         for (TransformedPayload transformedPayload : transformedPayloadList) {
-            initWashedRecord(dataCollectorParam, transformedPayload);
+            initWashedRecord(dataWashParam, transformedPayload);
 
             final Integer dataTypeId = transformedPayload.getDataTypeId();
             final Integer originDataId = transformedPayload.getOriginDataId();
@@ -71,12 +71,12 @@ public class DataWashService {
 
     }
 
-    private DataCollectorParam fetchDataCollectorParam() {
-        //create DataCollectorParam instance and then do some properties init
-        DataCollectorParam dataCollectorParam = new DataCollectorParam();
-        dataCollectorParam.setDataTypeId(0);
-        dataCollectorParam.setStrategyKeyTypeId(0);
-        return dataCollectorParam;
+    private DataWashParam fetchDataCollectorParam() {
+        //create DataWashParam instance and then do some properties init
+        DataWashParam dataWashParam = new DataWashParam();
+        dataWashParam.setDataTypeId(0);
+        dataWashParam.setStrategyKeyTypeId(0);
+        return dataWashParam;
     }
 
     private void updateWashedRecordWhenWashSuccessByOriginDataIdAndType(Integer dataTypeId, Integer originDataId, int washDataId) {
@@ -88,10 +88,10 @@ public class DataWashService {
         washedRecordService.updateWhenWashSuccessByOriginDataIdAndType(washedRecord);
     }
 
-    private void initWashedRecord(DataCollectorParam dataCollectorParam, TransformedPayload transformedPayload) {
+    private void initWashedRecord(DataWashParam dataWashParam, TransformedPayload transformedPayload) {
         WashedRecord washedRecord = new WashedRecord();
-        washedRecord.setDataTypeId(dataCollectorParam.getDataTypeId());
-        washedRecord.setStrategykeyTypeId(dataCollectorParam.getStrategyKeyTypeId());
+        washedRecord.setDataTypeId(dataWashParam.getDataTypeId());
+        washedRecord.setStrategykeyTypeId(dataWashParam.getStrategyKeyTypeId());
         washedRecord.setHandleResultTypeId(FAILD.getId());
         washedRecord.setOriginDataId(transformedPayload.getOriginDataId());
         washedRecord.setDataTypeId(transformedPayload.getDataTypeId());
